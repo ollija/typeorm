@@ -1370,7 +1370,14 @@ export class SelectQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
         // add all other selects
         this.expressionMap.selects
             .filter(select => excludedSelects.indexOf(select) === -1)
-            .forEach(select => allSelects.push({ selection: this.replacePropertyNames(select.selection), aliasName: select.aliasName }));
+            .forEach(select => {
+                const selectionObj: SelectQuery = { selection: this.replacePropertyNames(select.selection), aliasName: select.aliasName };
+                if (this.connection.driver instanceof PostgresDriver && select.selection.substring(0, 8).toUpperCase() === "DISTINCT") {
+                    allSelects.unshift(selectionObj);
+                } else {
+                    allSelects.push(selectionObj);
+                }
+            });
 
         // if still selection is empty, then simply set it to all (*)
         if (allSelects.length === 0)
