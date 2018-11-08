@@ -13,6 +13,7 @@
     "type": "git",
     "url": "https://github.com/typeorm/typeorm.git"
   },
+  "main": "build/package/index.js",
   "bugs": {
     "url": "https://github.com/typeorm/typeorm/issues"
   },
