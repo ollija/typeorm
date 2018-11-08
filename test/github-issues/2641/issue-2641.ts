@@ -40,14 +40,14 @@ describe("github issues > #2641 - DISTINCT in query builder", () => {
           .createQueryBuilder(Bar, "bar")
           .select('DISTINCT(bar.name)', 'name')
           .addSelect('bar.description', 'description')
-          .getMany();
+          .getRawMany();
 
         const withDistinctOn = await connection.manager
           .createQueryBuilder(Foo, "foo")
           .select('DISTINCT ON (foo.id) foo.id', 'id')
           .addSelect('bars.description', 'description')
           .leftJoin('foo.bar', 'bars')
-          .getMany();
+          .getRawMany();
 
         withDistinct.length.should.equal(1);
         withDistinctOn.length.should.equal(1);
