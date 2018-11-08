@@ -104,9 +104,6 @@
     "compile": "rimraf ./build && tsc",
     "package": "gulp package"
   },
-  "bin": {
-    "typeorm": "./cli.js"
-  },
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/typeorm",
